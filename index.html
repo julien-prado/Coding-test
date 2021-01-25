@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coding test</title>
+</head>
+
+<body>
+  <header>
+    <h1>
+      <span style="color:red"> Find a multiple of the 3 secret numbers</span>
+    </h1>
+    <section>
+      <h2>Rules:</h2>
+      <ul>
+        <li>The game generates 3 secret numbers between 1 and 10.</li>
+        <li>The goal of the player is to enter a number that is a multiple of the 3 secret numbers generated.</li>
+        <li>Each time the player inputs a number the game shows the player a result between 0 and 3</li>
+        <li>The result is determined by the amount of secret numbers that are a factor of the submitted number</li>
+        <li>The game ends when the player finds a multiple of all 3 secret numbers</li>
+      </ul>
+    </section>
+  </header>
+  <section>
+    <h2>Start a new Game</h2>
+    <button onclick="newGame()">New Game</button>
+  </section>
+  <section>
+    <h2>The Game</h2>
+    <form>
+      <label for="input"><b>Player input :</b></label><input id="input" type="number" step="1" oninput="check()"
+        disabled aria-label="Player input :" />
+    </form>
+    <b>Game answer : </b>
+    <span id="mess" style="color:red"></span>
+  </section>
+  <script src="game.js"></script>
+  <script>
+    newGame = () => {
+      game = new Game();
+      document.getElementById("input").removeAttribute("disabled");
+      document.getElementById("input").value = null;
+      document.getElementById('mess').innerHTML = null;
+    }
+
+    check = () => {
+      var input = document.getElementById("input").value;
+      if (input !== null && input !== undefined && Number(input)) {
+        var result = game.check(input);
+        document.getElementById('mess').innerHTML = result;
+        if (result === "Win") {
+          document.getElementById("input").setAttribute("disabled", "disabled");
+        }
+      }
+    }
+
+    newGame();
+  </script>
+</body>
+
+</html>
